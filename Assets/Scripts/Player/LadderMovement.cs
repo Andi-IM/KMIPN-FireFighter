@@ -14,7 +14,7 @@ namespace Environment
         private bool _isClimbing;
         private const String Ladder = "Ladder";
         [SerializeField] private Rigidbody2D rb;
-        private static readonly int Climb = Animator.StringToHash("Climb");
+        private static readonly int Climb = Animator.StringToHash("climb");
 
         private void Start()
         {
@@ -51,7 +51,7 @@ namespace Environment
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            Debug.Log("enter: "+ col.tag);
+            // Debug.Log("enter: "+ col.tag);
             if (col.CompareTag(Ladder))
             {
                 _isLadder = true;
@@ -60,7 +60,7 @@ namespace Environment
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            Debug.Log("exit: " + other.tag);
+            // Debug.Log("exit: " + other.tag);
             if (other.CompareTag(Ladder))
             {
                 _isLadder = false;
