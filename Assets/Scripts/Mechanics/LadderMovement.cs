@@ -2,7 +2,7 @@ using System;
 using Player;
 using UnityEngine;
 
-namespace Player
+namespace Mechanics
 {
     /// <summary>
     /// This class used to create ability of Player to CLimb Ladder if available.
@@ -10,7 +10,10 @@ namespace Player
     [RequireComponent(typeof(PlayerController), typeof(Animator))]
     public class LadderMovement : MonoBehaviour
     {
-        private float _vertical;
+        /// <summary>
+        /// Indicates vertical control such as WS (Up - Down)
+        /// </summary>
+        private float _verticalControl;
         [SerializeField] private float speed = 8f;
         private Animator _anim;
         private bool _isLadder;
@@ -26,14 +29,14 @@ namespace Player
 
         private void Update()
         {
-            _vertical = Input.GetAxis("Vertical");
+            _verticalControl = Input.GetAxis("Vertical");
 
-            if (_vertical != 0 && _isClimbing && _isLadder)
+            if (_verticalControl != 0 && _isClimbing && _isLadder)
                 _anim.SetBool(Climb, true);
             else
                 _anim.SetBool(Climb, false);
 
-            if (_isLadder && Mathf.Abs(_vertical) > 0f)
+            if (_isLadder && Mathf.Abs(_verticalControl) > 0f)
             {
                 _isClimbing = true;
             }
@@ -44,7 +47,7 @@ namespace Player
             if (_isClimbing)
             {
                 rb.gravityScale = 0f;
-                rb.velocity = new Vector2(rb.velocity.x, _vertical * speed);
+                rb.velocity = new Vector2(rb.velocity.x, _verticalControl * speed);
             }
             else
             {
