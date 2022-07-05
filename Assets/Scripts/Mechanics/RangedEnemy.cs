@@ -4,8 +4,11 @@ namespace Mechanics
 {
     public class RangedEnemy : MonoBehaviour
     {
-        [Header("Ray detection")] public GameObject playerDetect;
+        [Header("Ray detection")] [SerializeField]
+        GameObject playerDetect;
+
         [SerializeField] private float detectDistance;
+        [SerializeField] private string playerTag;
 
         [Header("Attack Parameters")] [SerializeField]
         private float attackCooldown;
@@ -66,7 +69,7 @@ namespace Mechanics
         {
             // SoundManager.instance.PlaySound(fireballSound);
             _cooldownTimer = 0;
-            fireballs[FindFireball()].transform.position = firePoint.position; 
+            fireballs[FindFireball()].transform.position = firePoint.position;
             fireballs[FindFireball()].GetComponent<EnemyProjectile>().ActivateProjectile();
         }
 
@@ -93,7 +96,7 @@ namespace Mechanics
                     Vector2.left * hit.distance * new Vector2(-transform.localScale.x, 0f), Color.red);
             }
 
-            return hit.collider != null && hit.collider.CompareTag("Player");
+            return hit.collider != null && hit.collider.CompareTag(playerTag);
         }
     }
 }

@@ -5,6 +5,13 @@ namespace Mechanics
     public class PlayerTeleport : MonoBehaviour
     {
         private GameObject _currentTeleporter;
+        [SerializeField] private AudioClip clip;
+        private AudioSource _source;
+
+        private void Start()
+        {
+            _source = GetComponent<AudioSource>();
+        }
 
         private void Update()
         {
@@ -12,6 +19,11 @@ namespace Mechanics
             {
                 if (_currentTeleporter != null)
                 {
+                    if (_source.isPlaying)
+                    {
+                        _source.Stop();
+                    }
+                    _source.PlayOneShot(clip);
                     transform.position = _currentTeleporter.GetComponent<Teleporter>().GetDestination().position;
                 }
             }

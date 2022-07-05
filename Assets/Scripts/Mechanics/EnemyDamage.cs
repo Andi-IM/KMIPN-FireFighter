@@ -8,7 +8,7 @@ namespace Mechanics
         protected void OnTriggerEnter2D(Collider2D col)
         {
             if (col.CompareTag("Player"))
-                col.GetComponent<Health>().Decrement(damage);
+                col.GetComponent<Health>().TakeDamage(damage);
         }
     }
 }

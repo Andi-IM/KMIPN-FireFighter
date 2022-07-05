@@ -12,20 +12,17 @@ namespace Player
         /// <summary>
         /// Max horizontal speed of the player;
         /// </summary>
-        [Header("Movement Parameters")] 
-        [SerializeField] private float maxSpeed;
+        [Header("Movement Parameters")] [SerializeField]
+        private float maxSpeed;
 
         [SerializeField] private float jumpPower;
 
-        [Header("Coyote Time")]
-        
-        [SerializeField]
+        [Header("Coyote Time")] [SerializeField]
         private float coyoteTime;
 
         private float _coyoteCounter;
 
-        [Header("Multiple Jumps")] 
-        public float gravityScale;
+        [Header("Multiple Jumps")] public float gravityScale;
 
         [SerializeField] private int extraJumps;
         private int _jumpCounter;
@@ -40,16 +37,13 @@ namespace Player
 
         [SerializeField] private LayerMask wallLayer;
 
-        // TODO: SEARCH FOR AUDIO ASSETS
-        // [Header("Sounds")] [SerializeField] private AudioClip jumpSound;
-
         private Rigidbody2D _body;
         private Animator _anim;
         private CapsuleCollider2D _collider;
         private float _horizontalInput;
         private static readonly int Run = Animator.StringToHash("run");
         private static readonly int Grounded = Animator.StringToHash("isGround");
-        
+
         private void Awake()
         {
             // Grab references for rigidbody and animator from object
@@ -64,7 +58,7 @@ namespace Player
 
             //Flip player when moving left-right
             if (_horizontalInput > 0.01f)
-                transform.localScale = new Vector3(0.2f,0.2f,1f);
+                transform.localScale = new Vector3(0.2f, 0.2f, 1f);
             else if (_horizontalInput < -0.01f)
                 transform.localScale = new Vector3(-0.2f, 0.2f, 1f);
 
@@ -108,9 +102,6 @@ namespace Player
             // print("counter: " + coyoteCounter);
             // If coyote counter is 0 or less an not on the wall and don have any extra jumps don't do anything 
             if (_coyoteCounter <= 0 && !OnWall() && _jumpCounter <= 0) return;
-
-            // TODO: IMPLEMENT SOUND PLAYING
-            // SoundManager.instance.PlaySound(jumpSound);
 
             if (OnWall())
                 WallJump();
@@ -166,6 +157,15 @@ namespace Player
         public bool CanAttack()
         {
             return _horizontalInput == 0 && IsGrounded() && !OnWall();
+        }
+
+        /// <summary>
+        /// Able to make player can be interact or not.
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetActive(bool value)
+        {
+            gameObject.SetActive(value);
         }
     }
 }

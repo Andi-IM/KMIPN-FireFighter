@@ -40,7 +40,7 @@ namespace Mechanics
         {
             Debug.Log(collision.tag);
             if (!collision.CompareTag("Untagged") && !collision.CompareTag("Enemy")) _hit = true;
-            // base.OnTriggerEnter2D(collision); //Execute logic from parent script first
+            base.OnTriggerEnter2D(collision); //Execute logic from parent script first
             _coll.enabled = false;
             
             if (_anim != null)
@@ -48,7 +48,6 @@ namespace Mechanics
         }
         private void Deactivate()
         {
-            
             gameObject.SetActive(false);
         }
     }
